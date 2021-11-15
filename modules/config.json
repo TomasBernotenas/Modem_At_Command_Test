@@ -1,0 +1,62 @@
+{
+    "devices": [
+        {
+            "device": "trm240", 
+            "con_type" : "serial",
+            "commands":[
+                {
+                    "command": "ATI",
+                    "param": [" "],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                    
+                },
+                {
+                    "command": "AT+CMGF",
+                    "param": ["1"],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                    
+                },
+                {
+                    "command": "AT+CMGS",
+                    "param": ["'+37067247441'","zinute"],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                }
+            ]
+         },
+         {
+            "device": "rutx11", 
+            "con_type" : "ssh",
+            "commands":[
+                {
+                    "command": "ATI",
+                    "param": [" "],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                    
+                },
+                {
+                    "command": "AT+CMGF",
+                    "param": ["1"],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                    
+                },
+                {
+                    "command": "AT+CMGS",
+                    "param": ["'+37067247441'","zinute"],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
+                }
+            ]
+         }
+    ]
+}
