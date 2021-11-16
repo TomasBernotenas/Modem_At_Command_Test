@@ -34,35 +34,13 @@ class serial_con:
     ## Modifies and executes commands
 
     def user_commands(self,device):
-       
-        index=0
-        para_str=""
         
         try:
-
-            # if "'" in device["param"][0]:
 
             self.__shell.write((device["command"].replace("'",'"') + '\r').encode())  
             time.sleep(0.5)
             self.__shell.write(((device["param"]) + "\r").encode())
-            time.sleep(0.5)
-
-            # elif " " in device["param"][0]:
-
-            #     self.__shell.write((device["command"]+"\r").encode())
-
-            # else:
-
-            #     while len(device["param"])-1>=index:
-            #         if "'" in device["param"][index]:
-            #             device["param"][index]=device["param"][index].replace("'",'"')
-            #         index+=1
-            #     para_str=(','.join(device["param"]))  
-            #     self.__shell.write((device["command"] + '=' + para_str + "\r").encode())
-
-            time.sleep(0.5)
             self.__shell.write(bytes([26]))
-            time.sleep(0.5)
             self.__Outstring=self.__shell.readlines()
             self.spc_del()
             self.res_check(device)
@@ -81,13 +59,13 @@ class serial_con:
         for line in self.__list:
             if "OK" in line: 
                 command["res"]="Passed"
-                command["res_param"]=self.__list
+                command["res_param"]=self.__list[1:]
                 sk+=1
                 self.__passed+=1
 
         if sk==0:
             command["res"]="Failed"
-            command["res_param"]=self.__list
+            command["res_param"]=self.__list[1:]
             self.__failed+=1 
 
     ## Prints output to terminal

@@ -129,44 +129,18 @@ class ssh_con:
 
     def user_commands(self,device):
        
-        index=0
-        para_str=""
-        
-        
         try:
 
-            # if "'" in device["param"][0]:
-
-            time.sleep(0.2)
             self.__shell.send(device["command"].replace("'",'"') + '\r') 
-            time.sleep(0.5)
             self.__shell.send((device["param"]) + "\r")
-            time.sleep(0.2)
-
-            # elif " " in device["param"][0]:
-            #     time.sleep(0.2)
-            #     self.__shell.send(device["command"]+"\n")
-            #     time.sleep(0.2)
-            # else:
-            #     while len(device["param"])-1>=index:
-            #         if "'" in device["param"][index]:
-            #             device["param"][index]=device["param"][index].replace("'",'"')
-            #         index+=1
-            #     para_str=(','.join(device["param"])) 
-            #     time.sleep(0.2) 
-            #     self.__shell.send(device["command"] + '=' + para_str + "\r")   
-
             self.read_out()
+            time.sleep(1)
 
             if "> " in self.__Outstring:
-                time.sleep(0.2)
                 self.__shell.send(bytes([26]))
                 self.read_out()
 
-            time.sleep(0.5)
-
             self.spc_del()
-            
             self.res_check(device)
 
         except Exception as e:
@@ -177,7 +151,7 @@ class ssh_con:
     ## Gets modem information
 
     def modem_inf(self):
-        self.__shell.send("ATI"+"\n")
+        self.__shell.send("ATI\n")
         time.sleep(0.2)
         self.read_out()
         time.sleep(0.2)
