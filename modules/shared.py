@@ -82,8 +82,6 @@ def getDevice(args):
     device = dev.getDevice(args.n)
     return device
 
-    ## Calls csv writing function
-
 ## Calls csv writer function
 
 def print_tocsv(device,mod_inf):

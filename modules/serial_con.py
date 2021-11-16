@@ -98,8 +98,8 @@ class serial_con:
         CEND = '\033[0m'
         back = "\033[F"
 
-        print("Device: "+ self.__device + "\r")
-        print(device["command"] + ": Running\r" )
+        print("Device: "+ self.__device + "         \r")
+        print(device["command"] + ": Running             \r" )
         print("Command count: " + str(size) + "\r")
         print(CGREEN+"Passed: "+CEND + str(self.__passed) + CRED +"  Failed: " + CEND + str(self.__failed)+ (back*4) +"\r")
             
