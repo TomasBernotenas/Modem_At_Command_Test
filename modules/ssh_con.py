@@ -127,7 +127,7 @@ class ssh_con:
 
     ## Modifies and executes commands
 
-    def user_commands(self,device,size):
+    def user_commands(self,device):
        
         index=0
         para_str=""
@@ -135,25 +135,26 @@ class ssh_con:
         
         try:
 
-            if "'" in device["param"][0]:
-                time.sleep(0.2)
-                self.__shell.send(device["command"] + '=' + device["param"][0].replace("'",'"') + '\r') #message 
-                time.sleep(0.2)
-                self.__shell.send((device["param"][1]) + "\r")
-                time.sleep(0.2)
+            # if "'" in device["param"][0]:
 
-            elif " " in device["param"][0]:
-                time.sleep(0.2)
-                self.__shell.send(device["command"]+"\n")
-                time.sleep(0.2)
-            else:
-                while len(device["param"])-1>=index:
-                    if "'" in device["param"][index]:
-                        device["param"][index]=device["param"][index].replace("'",'"')
-                    index+=1
-                para_str=(','.join(device["param"])) 
-                time.sleep(0.2) 
-                self.__shell.send(device["command"] + '=' + para_str + "\r")   
+            time.sleep(0.2)
+            self.__shell.send(device["command"].replace("'",'"') + '\r') 
+            time.sleep(0.5)
+            self.__shell.send((device["param"]) + "\r")
+            time.sleep(0.2)
+
+            # elif " " in device["param"][0]:
+            #     time.sleep(0.2)
+            #     self.__shell.send(device["command"]+"\n")
+            #     time.sleep(0.2)
+            # else:
+            #     while len(device["param"])-1>=index:
+            #         if "'" in device["param"][index]:
+            #             device["param"][index]=device["param"][index].replace("'",'"')
+            #         index+=1
+            #     para_str=(','.join(device["param"])) 
+            #     time.sleep(0.2) 
+            #     self.__shell.send(device["command"] + '=' + para_str + "\r")   
 
             self.read_out()
 
@@ -163,7 +164,7 @@ class ssh_con:
                 self.read_out()
 
             time.sleep(0.5)
-            
+
             self.spc_del()
             
             self.res_check(device)
@@ -197,7 +198,7 @@ class ssh_con:
 
             for com in device["commands"]:
                 self.term_print(com,size)
-                com=self.user_commands(com,size) 
+                com=self.user_commands(com) 
                 self.term_print(com,size)
 
         except Exception as e:

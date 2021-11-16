@@ -1,0 +1,6 @@
+Quectel,EG06,Revision: EG06ELAR04A04M4G
+command,param,expectedO,res_param,res
+ATI, ,OK,"['Quectel', 'EG06', 'Revision: EG06ELAR04A04M4G', 'OK']",Passed
+AT+CMGF=1, ,OK,['OK'],Passed
+AT+CMGS='+37067247441',zinute,OK,"['> ', '+CMGS: 199', 'OK']",Passed
+AT+CSCS='GSM', ,OK,['OK'],Passed

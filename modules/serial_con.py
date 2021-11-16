@@ -40,24 +40,25 @@ class serial_con:
         
         try:
 
-            if "'" in device["param"][0]:
+            # if "'" in device["param"][0]:
 
-                self.__shell.write((device["command"] + '=' + device["param"][0].replace("'",'"') + '\r').encode())  
-                self.__shell.write(((device["param"][1]) + "\r").encode())
-                self.__shell.reset_input_buffer()
+            self.__shell.write((device["command"].replace("'",'"') + '\r').encode())  
+            time.sleep(0.5)
+            self.__shell.write(((device["param"]) + "\r").encode())
+            time.sleep(0.5)
 
-            elif " " in device["param"][0]:
+            # elif " " in device["param"][0]:
 
-                self.__shell.write((device["command"]+"\r").encode())
+            #     self.__shell.write((device["command"]+"\r").encode())
 
-            else:
+            # else:
 
-                while len(device["param"])-1>=index:
-                    if "'" in device["param"][index]:
-                        device["param"][index]=device["param"][index].replace("'",'"')
-                    index+=1
-                para_str=(','.join(device["param"]))  
-                self.__shell.write((device["command"] + '=' + para_str + "\r").encode())
+            #     while len(device["param"])-1>=index:
+            #         if "'" in device["param"][index]:
+            #             device["param"][index]=device["param"][index].replace("'",'"')
+            #         index+=1
+            #     para_str=(','.join(device["param"]))  
+            #     self.__shell.write((device["command"] + '=' + para_str + "\r").encode())
 
             time.sleep(0.5)
             self.__shell.write(bytes([26]))
@@ -110,13 +111,13 @@ class serial_con:
     def spc_del(self):
         self.__list=[]
         for item in self.__Outstring:
-            if item.decode('utf-8').replace("\r\n","")!="":
-                self.__list.append(item.decode('utf-8')) 
+            if item.decode().replace("\r\n","")!="":
+                self.__list.append(item.decode('utf-8').replace("\r\n","")) 
     
     ## Gets modem info
 
     def modem_inf(self):
-        self.__shell.write(("ATI"+"\r").encode())
+        self.__shell.write(("ATI\r").encode())
         self.__shell.write(bytes([26]))
 
         self.__Outstring=self.__shell.readlines()
@@ -124,7 +125,7 @@ class serial_con:
         self.spc_del()
         self.__shell.reset_input_buffer()
         modem_inf=self.__list
-        return modem_inf     
+        return modem_inf[1:]    
 
     ## Main function that controls the flow of the module
 
