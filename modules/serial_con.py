@@ -46,11 +46,9 @@ class serial_con:
                 self.__shell.write(((device["param"][1]) + "\r").encode())
                 self.__shell.reset_input_buffer()
 
-
             elif " " in device["param"][0]:
 
                 self.__shell.write((device["command"]+"\r").encode())
-
 
             else:
 
@@ -62,15 +60,10 @@ class serial_con:
                 self.__shell.write((device["command"] + '=' + para_str + "\r").encode())
 
             time.sleep(0.5)
-
             self.__shell.write(bytes([26]))
-
             time.sleep(0.5)
-
             self.__Outstring=self.__shell.readlines()
-
             self.spc_del()
-
             self.res_check(device)
 
         except Exception as e:

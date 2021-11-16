@@ -134,7 +134,6 @@ class ssh_con:
         
         
         try:
-            self.term_print(device,size)
 
             if "'" in device["param"][0]:
                 time.sleep(0.2)
@@ -169,8 +168,6 @@ class ssh_con:
             
             self.res_check(device)
 
-            self.term_print(device,size)    
-
         except Exception as e:
             print(e)
 
@@ -199,7 +196,10 @@ class ssh_con:
             mod_inf= self.modem_inf()
 
             for com in device["commands"]:
+                self.term_print(com,size)
                 com=self.user_commands(com,size) 
+                self.term_print(com,size)
+
         except Exception as e:
             print(e)
         finally:

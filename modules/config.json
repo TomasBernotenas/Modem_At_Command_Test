@@ -55,6 +55,13 @@
                     "expectedO":"OK",
                     "res_param":"",
                     "res":"Failed"
+                },
+                {
+                    "command": "AT+CSCS",
+                    "param": ["'GSM'",""],
+                    "expectedO":"OK",
+                    "res_param":"",
+                    "res":"Failed"
                 }
             ]
          }
