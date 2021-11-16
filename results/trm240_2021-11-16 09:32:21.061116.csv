@@ -1,0 +1,6 @@
+Quectel,EC21,Revision: EC21ECGAR06A04M1G
+command,param,expectedO,res_param,res
+ATI, ,OK,"['ATI\r', 'Quectel', 'EC21', 'Revision: EC21ECGAR06A04M1G', 'OK']",Passed
+AT+CMGF=1, ,OK,"['AT+CMGF=1\r', 'OK']",Passed
+AT+CMGS='+37067247441',zinute,OK,"['AT+CMGS=""+37067247441""\r', '> zinute', '> ', '+CMGS: 79', 'OK']",Passed
+AT+CSCS='GSM', ,OK,"['AT+CSCS=""GSM""\r', 'OK']",Passed
