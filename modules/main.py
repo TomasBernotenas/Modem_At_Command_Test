@@ -17,10 +17,10 @@ def main(args):
 
 if __name__=="__main__": 
     parser = argparse.ArgumentParser(description='Connection parameters')
-    parser.add_argument('-n')#device name
-    parser.add_argument('-a')#address
-    parser.add_argument('-p',default=22)#port
-    parser.add_argument('-ln')#login name
-    parser.add_argument('-lp')#login password
+    parser.add_argument('-n', help= "Device name")#device name
+    parser.add_argument('-a', help= "Device address or port")#address
+    parser.add_argument('-p',default=22, help= "Connection port")#port
+    parser.add_argument('-ln', help= "Login name")#login name
+    parser.add_argument('-lp', help= "Login password")#login password
     args = parser.parse_args()
     main(args)
