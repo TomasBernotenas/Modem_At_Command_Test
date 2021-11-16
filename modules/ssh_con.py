@@ -16,33 +16,32 @@ class ssh_con:
     ## Checks if the connected device is the sames as the user entered
 
     def device_check(self,dev_name):
-        found=False
-        self.read_out()
-        self.__shell.send("uci show system\n")
-        time.sleep(0.2)
-        self.read_out()
-        if dev_name.upper() in self.__Outstring[8]:
-            found=True
+        try:
+            found=False
+            self.read_out()
+            self.__shell.send("uci show system\n")
+            time.sleep(0.2)
+            self.read_out()
+            if dev_name.upper() in self.__Outstring[8]:
+                found=True
+            if not found:
+                raise
+        except:
+            print("Wrong device connected")
         return found
 
     ## SSH connection configuration for command execution
 
     def ssh_start(self,name):
 
-        try:
-            self.gsmd_stop()
-            time.sleep(0.2)
+        self.gsmd_stop()
+        time.sleep(0.2)
             
-            if self.device_check(name):
-                time.sleep(0.2)
-                self.__shell.send("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n")
-                time.sleep(0.2)
-                self.read_out()
-            else:
-                raise ValueError()
-        except ValueError:
-            print("There is no such device in configuration file")
-            raise
+        if self.device_check(name):
+            time.sleep(0.2)
+            self.__shell.send("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n")
+            time.sleep(0.2)
+            self.read_out()
 
     ## Stops gsmd service
 
