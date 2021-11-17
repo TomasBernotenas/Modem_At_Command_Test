@@ -1,6 +1,4 @@
 import json
-from datetime import datetime
-
 
 # Functions for shared module use
 
@@ -35,7 +33,7 @@ class shared:
 
     ## Checks if the config file has the entered device and returns its commands 
 
-    def getDevice(self, deviceName):
+    def __getDevice__(self, deviceName):
         try:
             device = None
             devices = json.load(self.__config)
@@ -54,35 +52,13 @@ class shared:
     def __del__(self):
         self.__closeConfig__()
 
-    ## Writes output to csv file
-
-    def print_csv(device, mod_inf):
-        try:
-            import csv
-            header=[]
-            list=[]
-            with open("../results/" + str(device["device"]) + "_" + str(datetime.now()) + '.csv', 'x') as file:
-                writer = csv.writer(file)
-
-                for line in device["commands"]:
-                    header=line
-                    list.append([line["command"],line["param"],line["expectedO"],line["res_param"],line["res"]])
-
-                writer.writerow(mod_inf)    
-                writer.writerow(header)    
-                writer.writerows(list)
-        except Exception as e:
-            print(e)
-
 ## Returns commands of the provided device
 
 def getDevice(args):
 
     dev=shared()
-    device = dev.getDevice(args.n)
+    device = dev.__getDevice__(args.n)
     return device
 
-## Calls csv writer function
 
-def print_tocsv(device,mod_inf):
-    shared.print_csv(device,mod_inf)
+

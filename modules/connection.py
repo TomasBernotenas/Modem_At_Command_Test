@@ -7,10 +7,10 @@ class connection:
 
     ## imports module for device connection
 
-    def connect(device):
+    def connect(self,device):
         try:
-            module = importlib.import_module(device["con_type"]+"_con")
-            my_class = getattr(module, device["con_type"]+"_con")
+            module = importlib.import_module("modules.{type}_con".format(type=device["con_type"]))
+            my_class = getattr(module, "{type}_con".format(type=device["con_type"]))
             inst = my_class()
             return inst    
         except TypeError:

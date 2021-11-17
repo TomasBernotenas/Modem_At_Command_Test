@@ -7,32 +7,23 @@
                 {
                     "command": "ATI",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
+                    "expectedO":"OK"
                     
                 },
                 {
                     "command": "AT+CMGF=1",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
-                    
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CMGS='+37067247441'",
                     "param": "zinute",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CSCS='GSM'",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
+                    "expectedO":"OK"
                 }
             ]
          },
@@ -43,32 +34,22 @@
                 {
                     "command": "ATI",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
-                    
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CMGF=1",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
-                    
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CMGS='+37067247441'",
                     "param": "zinute",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CSCS='GSM'",
                     "param": " ",
-                    "expectedO":"OK",
-                    "res_param":"",
-                    "res":"Failed"
+                    "expectedO":"OK"
                 }
             ]
          }
