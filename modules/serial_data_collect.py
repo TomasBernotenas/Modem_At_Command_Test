@@ -1,27 +1,17 @@
+from modules.print_terminal import print_terminal
+from modules.connection import serial_con
 
 # Serial data collection module
 
 class data_collect:
 
     __shell=None
+    __print=None
     __args=None
     __passed=0
     __failed=0
     __Outstring=None
     __list=[]
-
-    ## Loads modules from module folder
-
-    def __load_print(self):
-        try:
-            terminal_print = __import__('modules.print_terminal',fromlist=["modules"])
-            serial_con = __import__('modules.connection',fromlist=["modules"])
-            serial_con = getattr(serial_con,'serial_con')
-            serial_con=serial_con()
-            return terminal_print.print_terminal(), serial_con
-        except Exception as e:
-            print(e)
-            print("Failed to load modules")
  
     ## Modifies and executes commands
 
@@ -88,16 +78,16 @@ class data_collect:
     def commands(self,device, args):
         try:
             self.__args=args
-            print_terminal, self.__shell=self.__load_print()
-
+            self.__shell=serial_con()
+            self.__print=print_terminal()
             size=len(device["commands"])
             deviceName=device["device"]
             modem_inf=self.modem_inf()
 
             for com in device["commands"]:
-                print_terminal.term_print(com,size,deviceName,self.__passed,self.__failed)
+                self.__print.term_print(com,size,deviceName,self.__passed,self.__failed)
                 com=self.user_commands(com) 
-                print_terminal.term_print(com,size,deviceName,self.__passed,self.__failed)
+                self.__print.term_print(com,size,deviceName,self.__passed,self.__failed)
             return device , modem_inf[:3]
 
         except Exception as e:

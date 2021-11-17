@@ -1,20 +1,11 @@
 import argparse
-import sys
+
+import modules.configuration as configuration
+import modules.csv_mod as csv_mod
+
 
 
 # Main module which controls the flow 
-
-## Loads modules from module folder
-
-def __load_module():
-        try:
-            sys.path.append("../")
-            conf_module = __import__('modules.configuration',fromlist=["modules"])
-            csv_module = __import__('modules.csv_mod',fromlist=["modules"])
-            
-            return conf_module,csv_module
-        except:
-            return False
 
 ## Dynamically loads module from module folder
 
@@ -26,12 +17,10 @@ def __load_data_collect(device):
         print(e)
         return False
 
-
 ## Main function that controls the flow
 
 def main(args):
 
-        configuration, csv_mod = __load_module()      
         device= configuration.getDevice(args)
         dataCollect =__load_data_collect(device)
         res,mod_inf=dataCollect.commands(device,args) 

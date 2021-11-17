@@ -1,29 +1,19 @@
 import time
 
+from modules.print_terminal import print_terminal
+from modules.connection import ssh_con
+
 # SSH data collection module
 
 class data_collect:
 
     __shell=None
+    __print=None
     __passed=0
     __failed=0
     __Outstring=""
     __list=[]
 
-    ## Loads modules from module folder 
-
-    def __load_print(self):
-        try:
-            terminal_print = __import__('modules.print_terminal',fromlist=["modules"])
-            ssh_con = __import__('modules.connection',fromlist=["modules"])
-            ssh_con = getattr(ssh_con,'ssh_con')
-            ssh_con=ssh_con()
-            
-            return terminal_print.print_terminal(), ssh_con
-
-        except Exception as e:
-            print(e)
-            print("Failed to load modules")
 
     ## Checks if the connected device is the sames as the user entered
 
@@ -140,7 +130,8 @@ class data_collect:
     
     def commands(self,device,args):
         try:
-            print_terminal, self.__shell=self.__load_print()
+            self.__shell=ssh_con()
+            self.__print=print_terminal()
             self.__shell.connectionPort(args)
 
             self.ssh_start(device["device"])
@@ -150,9 +141,9 @@ class data_collect:
             mod_inf= self.modem_inf()
             
             for com in device["commands"]:
-                print_terminal.term_print(com,size,deviceName,self.__passed,self.__failed)
+                self.__print.term_print(com,size,deviceName,self.__passed,self.__failed)
                 com=self.user_commands(com) 
-                print_terminal.term_print(com,size,deviceName,self.__passed,self.__failed)
+                self.__print.term_print(com,size,deviceName,self.__passed,self.__failed)
             return device , mod_inf
 
         except Exception as e:

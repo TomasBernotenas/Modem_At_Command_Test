@@ -13,7 +13,7 @@ class csv_mod:
 
             header=[]
             list=[]
-            with open("../results/" + str(device["device"]) + "_" + str(datetime.now()) + '.csv', 'x') as file:
+            with open("results/" + str(device["device"]) + "_" + str(datetime.now()) + '.csv', 'x') as file:
                 writer = csv.writer(file)
 
                 for line in device["commands"]:
