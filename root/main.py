@@ -12,7 +12,7 @@ def __load_module():
             conf_module = __import__('modules.configuration',fromlist=["modules"])
             csv_module = __import__('modules.csv_mod',fromlist=["modules"])
             
-            return conf_module.config(),csv_module
+            return conf_module,csv_module
         except:
             return False
 
@@ -32,7 +32,7 @@ def __load_data_collect(device):
 def main(args):
 
         configuration, csv_mod = __load_module()      
-        device= configuration.__getDevice__(args.n)
+        device= configuration.getDevice(args)
         dataCollect =__load_data_collect(device)
         res,mod_inf=dataCollect.commands(device,args) 
         csv_mod.print_tocsv(res,mod_inf)

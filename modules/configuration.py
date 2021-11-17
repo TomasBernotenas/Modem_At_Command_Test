@@ -33,7 +33,7 @@ class config:
 
     ## Checks if the config file has the entered device and returns its commands 
 
-    def __getDevice__(self, deviceName):
+    def getDevice(self, deviceName):
         try:
             device = None
             devices = json.load(self.__config)
@@ -54,11 +54,11 @@ class config:
 
 ## Returns commands of the provided device
 
-# def getDevice(args):
+def getDevice(args):
 
-#     dev=shared()
-#     device = dev.__getDevice__(args.n)
-#     return device
+    dev=config()
+    device = dev.getDevice(args.n)
+    return device
 
 
 
