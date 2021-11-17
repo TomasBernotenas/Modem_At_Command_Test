@@ -1,5 +1,8 @@
 
+# Terminal printer module
+
 class print_terminal:
+
     ## Prints output to terminal
 
     def term_print(self,device,size,deviceName,passed,failed):
@@ -8,10 +11,14 @@ class print_terminal:
         CEND = '\033[0m'
         back = "\033[F"
 
-        print("Device: "+ deviceName + "                 \r")
-        print(device["command"] + ": Running                   \r" )
-        print("Command count: " + str(size) + "\r")
-        print(CGREEN+"Passed: "+CEND + str(passed) + CRED +"  Failed: " + CEND + str(failed)+ (back*4) +"\r")
-            
-        if size == passed+failed:
-            print("\n\n\n")
+        try:
+            print("Device: "+ deviceName + "                 \r")
+            print(device["command"] + ": Running                   \r" )
+            print("Command count: " + str(size) + "\r")
+            print(CGREEN+"Passed: "+CEND + str(passed) + CRED +"  Failed: " + CEND + str(failed)+ (back*4) +"\r")
+                
+            if size == passed+failed:
+                print("\n\n\n")
+        except Exception as e:
+            print(e)
+            print("Failed to print output to terminal")

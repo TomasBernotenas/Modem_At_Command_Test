@@ -2,19 +2,21 @@ import argparse
 import sys
 
 
-
-
 # Main module which controls the flow 
+
+## Loads modules from module folder
+
 def __load_module():
         try:
             sys.path.append("../")
             conf_module = __import__('modules.configuration',fromlist=["modules"])
-            con_module = __import__('modules.connection',fromlist=["modules"])
             csv_module = __import__('modules.csv_mod',fromlist=["modules"])
             
-            return conf_module.shared(), con_module.connection(), csv_module
+            return conf_module.config(),csv_module
         except:
             return False
+
+## Dynamically loads module from module folder
 
 def __load_data_collect(device):
     try:
@@ -24,14 +26,15 @@ def __load_data_collect(device):
         print(e)
         return False
 
+
+## Main function that controls the flow
+
 def main(args):
 
-        configuration, connection, csv_mod = __load_module()      
+        configuration, csv_mod = __load_module()      
         device= configuration.__getDevice__(args.n)
-        inst=connection.connect(device)
-        dataCollect=__load_data_collect(device)
-        shell = inst.connectionPort(args)
-        res,mod_inf=dataCollect.commands(device,shell) 
+        dataCollect =__load_data_collect(device)
+        res,mod_inf=dataCollect.commands(device,args) 
         csv_mod.print_tocsv(res,mod_inf)
     
 ## Processes user arguments and calls main function 

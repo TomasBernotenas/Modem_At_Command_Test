@@ -5,7 +5,7 @@ import json
 ## Config file reading
 ## CSV file writing
 
-class shared:
+class config:
 
     __configName = "config.json"
     __config = None
@@ -54,11 +54,11 @@ class shared:
 
 ## Returns commands of the provided device
 
-def getDevice(args):
+# def getDevice(args):
 
-    dev=shared()
-    device = dev.__getDevice__(args.n)
-    return device
+#     dev=shared()
+#     device = dev.__getDevice__(args.n)
+#     return device
 
 
 

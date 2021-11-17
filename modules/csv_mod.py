@@ -1,4 +1,6 @@
 
+# CSV file functions
+
 class csv_mod: 
     
     ## Writes output to csv file
