@@ -7,8 +7,7 @@
                 {
                     "command": "ATI",
                     "param": " ",
-                    "expectedO":"OK"
-                    
+                    "expectedO":"OK" 
                 },
                 {
                     "command": "AT+CMGF=1",
@@ -39,7 +38,7 @@
                 {
                     "command": "AT+CMGF=1",
                     "param": " ",
-                    "expectedO":"OK"
+                    "expectedO":"ERROR"
                 },
                 {
                     "command": "AT+CMGS='+37067247441'",
@@ -50,6 +49,31 @@
                     "command": "AT+CSCS='GSM'",
                     "param": " ",
                     "expectedO":"OK"
+                },
+                {
+                    "command": "AT+COPS=?",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CREG=?",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+COPN?",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                },
+                {
+                    "command": "AT+CTZU=0",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                },
+                {
+                    "command": "AT+CTZU=1",
+                    "param": " ",
+                    "expectedO":"ERROR"
                 }
             ]
          }

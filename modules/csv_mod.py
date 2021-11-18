@@ -5,7 +5,7 @@ class csv_mod:
     
     ## Writes output to csv file
 
-    def __print_csv__(device, mod_inf):
+    def print_csv(device, mod_inf):
         try:
 
             import csv
@@ -26,8 +26,3 @@ class csv_mod:
 
         except Exception as e:
             print(e)
-
-## Calls csv writer function
-
-def print_tocsv(device,mod_inf):
-    csv_mod.__print_csv__(device,mod_inf)

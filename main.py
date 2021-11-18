@@ -1,18 +1,28 @@
-import argparse
+import sys
+import signal
+from argparse import ArgumentParser
 
-import modules.configuration as configuration
-import modules.csv_mod as csv_mod
-
-
+from modules.configuration import config as configuration 
+from modules.csv_mod import csv_mod as csv_mod
+import modules.data_collect as data_collect
 
 # Main module which controls the flow 
+
+
+# def sigterm_handler(_signo, _stack_frame):
+#     sys.exit(0)
+
+# if sys.argv[1] == "handle_signal":
+#     signal.signal(signal.SIGTERM, sigterm_handler)
 
 ## Dynamically loads module from module folder
 
 def __load_data_collect(device):
     try:
-        data_module = __import__('modules.{type}_data_collect'.format(type=device["con_type"]),fromlist=["modules"])
-        return data_module.data_collect()
+        connection_module = __import__('modules.{type}_con'.format(type=device["con_type"]),fromlist=["modules"])
+        connection_atr = getattr(connection_module,'{type}_con'.format(type=device["con_type"]))
+        connection_class= connection_atr()
+        return connection_class
     except Exception as e:
         print(e)
         return False
@@ -20,20 +30,37 @@ def __load_data_collect(device):
 ## Main function that controls the flow
 
 def main(args):
+    try:
+        device= configuration.getDevice(args.d)
+        connection_class=__load_data_collect(device)
+        if connection_class:
+            try:
+                connection_class.connectionPort(args)
+                data=data_collect.data_collect(device,connection_class)
+                res,mod_inf = data.commands() 
+                csv_mod.print_csv(res,mod_inf)
+            except:
+                raise
+            finally:
+                connection_class.close_connections()
 
-        device= configuration.getDevice(args)
-        dataCollect =__load_data_collect(device)
-        res,mod_inf=dataCollect.commands(device,args) 
-        csv_mod.print_tocsv(res,mod_inf)
+    except Exception as e:
+        print(e)
+        
     
 ## Processes user arguments and calls main function 
 
-if __name__=="__main__": 
-    parser = argparse.ArgumentParser(description='Connection parameters')
-    parser.add_argument('-n', help= "Device name")#device name
+def argument_parser():
+    parser = ArgumentParser(description='Connection parameters')
+    parser.add_argument('-d', help= "Device name")#device name
     parser.add_argument('-a', help= "Device address or port")#address
-    parser.add_argument('-p',default=22, help= "Connection port")#port
-    parser.add_argument('-ln', help= "Login name")#login name
-    parser.add_argument('-lp', help= "Login password")#login password
+    parser.add_argument('-cp',default=22, help= "Connection port")#port
+    parser.add_argument('-u', help= "Login name")#login name
+    parser.add_argument('-p', help= "Login password")#login password
     args = parser.parse_args()
+    return args
+
+
+if __name__ == '__main__': 
+    args=argument_parser()
     main(args)
