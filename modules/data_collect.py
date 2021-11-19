@@ -26,15 +26,16 @@ class data_collect:
             found=False
             self.__shell.read_out()
             self.__Outstring=self.__shell.exec_command("uci show system\n"," ")
-            if dev_name.upper() in self.__Outstring[8]:
+            
+            if dev_name.upper() in str(self.__Outstring):
                 found=True
             if not found:
                 raise
             return found
 
         except Exception as e:
-            print(e)
             print("Wrong device connected")
+            exit()
      
     ## SSH connection configuration for command execution
 
@@ -47,8 +48,8 @@ class data_collect:
                     self.__shell.exec_command("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n"," ")
             return
         except Exception as e:
-            print(e)
             print("Failed to launch socat")
+            exit()
 
     ## Stops gsmd service
 
@@ -56,8 +57,8 @@ class data_collect:
         try:
             self.__shell.gsmd_stop("/etc/init.d/gsmd stop\n")  
         except Exception as e:
-            print(e)
             print("Failed to stop gsmd")
+            exit()
 
     ## Starts gsmd service
 
@@ -67,8 +68,8 @@ class data_collect:
                 self.__shell.gsmd_start(bytes([26]),"/etc/init.d/gsmd start\n") 
             return                
         except Exception as e:
-            print(e)
             print("Failed to start gsmd")
+            exit()
 
     ## Modifies and executes commands
 
@@ -77,12 +78,22 @@ class data_collect:
         try:
             self.__Outstring=self.__shell.exec_command(device["command"].replace("'",'"'), device["param"])
             self.spc_del()
+            # if self.__list==[]:
+            #     print(self.__list)
+            #     print(self.__Outstring)
+            #     self.__shell.gsmd_stop("\x03")
+            #     self.__Outstring=self.__shell.read_out()
+            #     self.spc_del()
+            #     print(self.__list)
+            #     print(self.__Outstring)
+
             self.res_check(device)
             return device
 
         except Exception as e:
             print(e)
             print("Could not execute command")
+            exit()
 
     ## Checks the output and adds to command object 
 
@@ -102,8 +113,8 @@ class data_collect:
                 command["res_param"]=self.__list
                 self.__failed+=1 
         except Exception as e:
-            print(e)
             print("Failed to write results")
+            exit()
 
     ## Adds non empty fileds to list and decode them
 
@@ -120,8 +131,8 @@ class data_collect:
                         self.__list.append(item) 
             return 
         except Exception as e:
-            print(e)
             print("Failed to process output")
+            exit()
     
     ## Gets modem info
 
@@ -136,8 +147,8 @@ class data_collect:
             return modem_inf
 
         except Exception as e:
-            print(e)
             print("Failed to get modem information") 
+            exit()
 
     ## Main function that controls the flow of the module
 
@@ -160,9 +171,10 @@ class data_collect:
 
         except Exception as e:
             print(e)
+            exit()
 
         finally:
-            self.gsmd_start()
-            print("gsmd closed")
+            if self.__device["con_type"]=="ssh":
+                self.gsmd_start()
 
         

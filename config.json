@@ -38,7 +38,7 @@
                 {
                     "command": "AT+CMGF=1",
                     "param": " ",
-                    "expectedO":"ERROR"
+                    "expectedO":"OK"
                 },
                 {
                     "command": "AT+CMGS='+37067247441'",
@@ -51,7 +51,53 @@
                     "expectedO":"OK"
                 },
                 {
-                    "command": "AT+COPS=?",
+                    "command": "AT+CREG=?",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+COPN?",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                },
+                {
+                    "command": "AT+CTZU=0",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CTZU=1",
+                    "param": " ",
+                    "expectedO":"OK"
+                }
+            ]
+         },
+         {
+            "device": "rutx09", 
+            "con_type" : "ssh",
+            "commands":[
+                {
+                    "command": "ATI",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CMGF=0",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CMGF=1",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CMGS='+37067247441'",
+                    "param": "zinute",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CSCS='GSM'",
                     "param": " ",
                     "expectedO":"OK"
                 },
@@ -75,7 +121,48 @@
                     "param": " ",
                     "expectedO":"ERROR"
                 }
-            ]
+            ]  
+         },
+         {
+            "device": "rut950", 
+            "con_type" : "ssh",
+            "commands":[
+                {
+                    "command": "ATI",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CMGF=1",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CMGS='+37067247441'",
+                    "param": "zinute",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+CREG=?",
+                    "param": " ",
+                    "expectedO":"OK"
+                },
+                {
+                    "command": "AT+COPN?",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                },
+                {
+                    "command": "AT+CTZU=0",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                },
+                {
+                    "command": "AT+CTZU=1",
+                    "param": " ",
+                    "expectedO":"ERROR"
+                }
+            ]  
          }
     ]
 }

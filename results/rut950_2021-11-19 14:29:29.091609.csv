@@ -1,0 +1,9 @@
+Quectel,EC25,Revision: EC25ECGAR06A04M1G
+command,param,expectedO,res,res_param
+ATI, ,OK,"Quectel,EC25,Revision: EC25ECGAR06A04M1G,OK,",Passed
+AT+CMGF=1, ,OK,"OK,",Passed
+AT+CMGS='+37067247441',zinute,OK,"> ,+CMGS: 190,OK,",Passed
+AT+CREG=?, ,OK,"+CREG: (0-2),OK,",Passed
+AT+COPN?, ,ERROR,"ERROR,",Passed
+AT+CTZU=0, ,ERROR,"OK,",Failed
+AT+CTZU=1, ,ERROR,"OK,",Failed

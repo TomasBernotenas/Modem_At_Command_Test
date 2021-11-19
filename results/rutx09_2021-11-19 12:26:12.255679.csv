@@ -1,0 +1,11 @@
+Quectel,EG06,Revision: EG06ELAR03A05M4G
+command,param,expectedO,res,res_param
+ATI, ,OK,"Quectel,EG06,Revision: EG06ELAR03A05M4G,OK,",Passed
+AT+CMGF=0, ,OK,"OK,",Passed
+AT+CMGF=1, ,OK,"OK,",Passed
+AT+CMGS='+37067247441',zinute,OK,"> ,+CMGS: 167,OK,",Passed
+AT+CSCS='GSM', ,OK,"OK,",Passed
+AT+CREG=?, ,OK,"+CREG: (0-2),OK,",Passed
+AT+COPN?, ,ERROR,"ERROR,",Passed
+AT+CTZU=0, ,ERROR,"OK,",Failed
+AT+CTZU=1, ,ERROR,"OK,",Failed

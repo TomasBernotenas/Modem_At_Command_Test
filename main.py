@@ -8,12 +8,9 @@ import modules.data_collect as data_collect
 
 # Main module which controls the flow 
 
-
-# def sigterm_handler(_signo, _stack_frame):
-#     sys.exit(0)
-
-# if sys.argv[1] == "handle_signal":
-#     signal.signal(signal.SIGTERM, sigterm_handler)
+def signal_handler(sig, frame):
+    print('\n\n\n\nYou pressed Ctrl+C!')
+    sys.exit(0)
 
 ## Dynamically loads module from module folder
 
@@ -25,12 +22,13 @@ def __load_data_collect(device):
         return connection_class
     except Exception as e:
         print(e)
-        return False
+        exit()
 
 ## Main function that controls the flow
 
 def main(args):
     try:
+        signal.signal(signal.SIGINT, signal_handler)
         device= configuration.getDevice(args.d)
         connection_class=__load_data_collect(device)
         if connection_class:
@@ -46,6 +44,7 @@ def main(args):
 
     except Exception as e:
         print(e)
+        exit()
         
     
 ## Processes user arguments and calls main function 

@@ -18,6 +18,10 @@ class serial_con:
             print("Device or resource busy")
         except FileNotFoundError:
             print("Port is not connected")
+        except Exception as e:
+            print(e)
+            exit()
+
 
     ## Executes command and reads output
 
@@ -34,8 +38,8 @@ class serial_con:
             Outstring=self.__shell.readlines()
             return Outstring
         except Exception as e:
-            print(e)
-            print("Failed to execute command")
+            print("\n\n\n\n"+str(e))
+            exit()
 
     ## Closes serial port
 

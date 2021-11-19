@@ -8,21 +8,25 @@ class csv_mod:
     def print_csv(device, mod_inf):
         try:
 
-            import csv
+            from csv import writer
             from datetime import datetime
 
             header=[]
             list=[]
             with open("results/" + str(device["device"]) + "_" + str(datetime.now()) + '.csv', 'x') as file:
-                writer = csv.writer(file)
+                write = writer(file)
 
                 for line in device["commands"]:
                     header=line
-                    list.append([line["command"],line["param"],line["expectedO"],line["res_param"],line["res"]])
+                    parameters=""
+                    for item in line["res_param"]:
+                        parameters=parameters+str(item)+","
+                    list.append([line["command"],line["param"],line["expectedO"],parameters,line["res"]])
 
-                writer.writerow(mod_inf)    
-                writer.writerow(header)    
-                writer.writerows(list)
+                write.writerow(mod_inf)    
+                write.writerow(header)    
+                write.writerows(list)
 
         except Exception as e:
             print(e)
+            exit()
