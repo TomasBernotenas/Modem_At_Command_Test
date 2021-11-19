@@ -78,15 +78,6 @@ class data_collect:
         try:
             self.__Outstring=self.__shell.exec_command(device["command"].replace("'",'"'), device["param"])
             self.spc_del()
-            # if self.__list==[]:
-            #     print(self.__list)
-            #     print(self.__Outstring)
-            #     self.__shell.gsmd_stop("\x03")
-            #     self.__Outstring=self.__shell.read_out()
-            #     self.spc_del()
-            #     print(self.__list)
-            #     print(self.__Outstring)
-
             self.res_check(device)
             return device
 

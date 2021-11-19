@@ -18,7 +18,6 @@ class ssh_con:
 
         try:
             self.__client_pre = SSHClient()
-            #self.__client_pre.load_system_host_keys()
             self.__client_pre.set_missing_host_key_policy(AutoAddPolicy())
             self.__client_pre.connect(args.a,args.cp,args.u,args.p,look_for_keys=False, allow_agent=False, auth_timeout=3)
             self.__shell=self.__client_pre.invoke_shell()
@@ -53,7 +52,6 @@ class ssh_con:
             sleep(0.2)
             self.read_out()
 
-            #if "> " in self.__Outstring:
             if param!=" ":
                 self.__shell.send(bytes([26]))
                 sleep(0.5)
@@ -68,8 +66,6 @@ class ssh_con:
     def read_out(self):
         try:
             while not self.__shell.recv_ready():
-                #print("sleep")
-                self.__shell.send(bytes([26]))
                 self.__client_pre.exec_command(" ",timeout=2)
                 sleep(0.5)
             self.__Outstring = self.__shell.recv(9999).decode("ascii").splitlines()
