@@ -9,7 +9,7 @@ import modules.data_collect as data_collect
 # Main module which controls the flow 
 
 def signal_handler(sig, frame):
-    print('\n\n\n\nYou pressed Ctrl+C!')
+    print('\n\n\n\nProcess terminated')
     sys.exit(0)
 
 ## Dynamically loads module from module folder
