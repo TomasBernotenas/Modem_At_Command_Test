@@ -8,7 +8,7 @@ class config:
 
     ## Checks if the config file has the entered device and returns its commands 
 
-    def getDevice(deviceName):
+    def get_device_info(deviceName):
         try:
             device = None
             with open("config.json","r") as file:

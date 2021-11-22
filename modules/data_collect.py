@@ -21,10 +21,10 @@ class data_collect:
     ## Checks if the connected device is the sames as the user entered
     ### ubus sys ?
 
-    def device_check(self,dev_name):
+    def device_name_check(self,dev_name):
         try:
             found=False
-            self.__shell.read_out()
+            self.__shell.read_output()
             self.__Outstring=self.__shell.exec_command("uci show system\n"," ")
             
             if dev_name.upper() in str(self.__Outstring):
@@ -44,7 +44,7 @@ class data_collect:
             if self.__device["con_type"]=="ssh":
                 self.gsmd_stop()
                     
-                if self.device_check(self.__device["device"]):
+                if self.device_name_check(self.__device["device"]):
                     self.__shell.exec_command("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n"," ")
             return
         except Exception as e:
@@ -78,7 +78,7 @@ class data_collect:
         try:
             self.__Outstring=self.__shell.exec_command(device["command"].replace("'",'"'), device["param"])
             self.spc_del()
-            self.res_check(device)
+            self.command_res_check(device)
             return device
 
         except Exception as e:
@@ -88,7 +88,7 @@ class data_collect:
 
     ## Checks the output and adds to command object 
 
-    def res_check(self,command):
+    def command_res_check(self,command):
         try:
             sk=0
 
@@ -127,7 +127,7 @@ class data_collect:
     
     ## Gets modem info
 
-    def modem_inf(self):
+    def get_modem_info(self):
         try:
             self.__Outstring=self.__shell.exec_command("ATI\n", " ")
             self.spc_del()
@@ -143,7 +143,7 @@ class data_collect:
 
     ## Main function that controls the flow of the module
 
-    def commands(self):
+    def module_control_commands(self):
         try:
             self.__print=print_terminal()
 
@@ -152,7 +152,7 @@ class data_collect:
             size=len(self.__device["commands"])
             deviceName=self.__device["device"]
             
-            mod_inf= self.modem_inf()
+            mod_inf= self.get_modem_info()
             
             for com in self.__device["commands"]:
                 self.__print.term_print(com,size,deviceName,self.__passed,self.__failed)

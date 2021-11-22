@@ -8,6 +8,8 @@ import modules.data_collect as data_collect
 
 # Main module which controls the flow 
 
+## Termination handler
+
 def signal_handler(sig, frame):
     print('\n\n\n\nProcess terminated')
     sys.exit(0)
@@ -29,14 +31,14 @@ def __load_data_collect(device):
 def main(args):
     try:
         signal.signal(signal.SIGINT, signal_handler)
-        device= configuration.getDevice(args.d)
+        device= configuration.get_device_info(args.d)
         connection_class=__load_data_collect(device)
         if connection_class:
             try:
                 connection_class.connectionPort(args)
                 data=data_collect.data_collect(device,connection_class)
-                res,mod_inf = data.commands() 
-                csv_mod.print_csv(res,mod_inf)
+                res,mod_inf = data.module_control_commands() 
+                csv_mod.print_to_csv(res,mod_inf)
             except:
                 raise
             finally:

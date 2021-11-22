@@ -50,12 +50,12 @@ class ssh_con:
             sleep(0.2)
             self.__shell.send(param+"\r")
             sleep(0.2)
-            self.read_out()
+            self.read_output()
 
             if param!=" ":
                 self.__shell.send(bytes([26]))
                 sleep(0.5)
-                self.read_out()
+                self.read_output()
             return self.__Outstring
         except Exception as e:
             print("Failed to execute command")
@@ -63,7 +63,7 @@ class ssh_con:
 
     ## Reads output of shell
 
-    def read_out(self):
+    def read_output(self):
         try:
             while not self.__shell.recv_ready():
                 self.__client_pre.exec_command(" ",timeout=2)

@@ -5,7 +5,7 @@ class csv_mod:
     
     ## Writes output to csv file
 
-    def print_csv(device, mod_inf):
+    def print_to_csv(device, mod_inf):
         try:
 
             from csv import writer
