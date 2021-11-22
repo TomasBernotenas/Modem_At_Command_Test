@@ -93,7 +93,7 @@ class data_collect:
             sk=0
 
             for line in self.__list:
-                if command["expectedO"] in line: 
+                if command["expectedOutput"] in line: 
                     command["res"]="Passed"
                     command["res_param"]=self.__list
                     sk+=1

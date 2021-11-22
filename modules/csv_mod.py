@@ -21,7 +21,7 @@ class csv_mod:
                     parameters=""
                     for item in line["res_param"]:
                         parameters=parameters+str(item)+","
-                    list.append([line["command"],line["param"],line["expectedO"],parameters,line["res"]])
+                    list.append([line["command"],line["param"],line["expectedOutput"],parameters,line["res"]])
 
                 write.writerow(mod_inf)    
                 write.writerow(header)    
